@@ -1,4 +1,5 @@
 import scala.math.min
+import scala.io.Source
 
 object arrays  {
 
@@ -14,7 +15,7 @@ object arrays  {
   }
 
   def getIntsAsString(label: String, delimiter : String, a: Array[Int]) : String = {
-    ""
+    label + a.mkString(delimiter)
   }
 
 
@@ -23,8 +24,15 @@ object arrays  {
   // Each line should be converted to Int (if possible) or 0 otherwise.
 
   def readFileIntoArray(filename: String, a : Array[Int]) {
-
-  }
+     val file = Source.fromFile(filename)
+     var i = 0
+     for(line <- file.getLines){
+      if (i < a.length)
+        a(i) = line.toInt
+     i = i+1
+     }
+       
+}
 
   //Minimum chunk
   ///  Return the minimum value in a.
@@ -33,14 +41,22 @@ object arrays  {
 
   def minimum(a: Array[Int]) : Int = {
     require(a.length > 0) // if you delete this, the tests will not pass!
-
-    return 0; // so stub compiles
+    
+      a.min
   }
   //CountEven chunk
   ///  Return the number of even values in a.
   ///  Example: If a contains {-4, 7, 6, 12, 9}, return 3. 
   def countEven(a: Array[Int]) : Int = {
-    return 0; // so stub compiles
+   var i = 0
+   for (k <- 0 to a.length-1)
+    if (a(k)%2 == 0) {
+        i = i+1}else{
+        i = i
+    }
+    i
+      
+      
   }
 
   //CountEven chunk
@@ -48,7 +64,15 @@ object arrays  {
   ///  Example: If a contains {-4, 7, 6, 12, 9}, return 3. 
 
   def countOdd(a: Array[Int]) : Int = {
-    return 0; // so stub compiles
+    var i = 0
+    for (k <- 0 to a.length-1)
+      if (a(k)%2 != 0) {
+          i = i+1}else{
+          i = i
+      }
+      i
+         
+      //return 0; // so stub compiles
   }
 
   //PairwiseAdd chunk
@@ -58,8 +82,11 @@ object arrays  {
   ///  then at the end sum should contain {9, 3, 14}. 
 
   def pairwiseAdd(a: Array[Int], b: Array[Int], c: Array[Int])  {
-
-  }
+      val addSize = min(a.length, b.length)
+      for(i <- 0 to addSize-1){
+          c(i) = a(i) + b(i)}
+      
+     }
   //NewPairwiseAdd chunk
   ///  Return a new array whose elements are the sums of the
   ///  corresponding elements of a and b.
@@ -69,6 +96,9 @@ object arrays  {
   def newPairwiseAdd(a: Array[Int], b: Array[Int]) : Array[Int] = {
     val addSize = min(a.length, b.length)
     val newArray = Array.fill(addSize)(0)
+    for( i <- 0 until addSize)
+       newArray(i) = a(i) + b(i)
+      
 
     // your code here
 
@@ -83,7 +113,14 @@ object arrays  {
   ///  Examples: If a contains {2, 5, 5, 8}, return true;
   ///  if a contains {2, 5, 3, 8}, return false. 
   def isAscending(a: Array[Int]) : Boolean = {
-    false
+      var increasing = true
+      for( i <- 0 to (a.length-2)){
+          if (a(i) > a(i+1)) {
+               increasing = false}
+          }
+          increasing
+      
+      
   }
 
   /*
